@@ -13,4 +13,17 @@ for line in mega_file:
         a = 1
         dict_mega["DESCRIPTOR"] = line.split("#")[1].strip()
 dict_mega["Sequence"] = seq
-print(dict_mega)
+fasta_desc = ">"
+fasta_seq = ""
+for key, value in dict_mega.items():
+    if key != 'Sequence':
+        fasta_desc+= dict_mega[key] + "|"
+
+    else:
+        fasta_seq += dict_mega[key].upper()
+
+print(fasta_desc, fasta_seq)
+fasta_genbank = open("fasta_mega.txt", "w")
+fasta_genbank.write(fasta_desc) + fasta_genbank.write("\n") + fasta_genbank.write(fasta_seq)
+
+
