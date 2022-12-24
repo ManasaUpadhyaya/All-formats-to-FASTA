@@ -1,7 +1,6 @@
 import re
 genebank_file = open("KU325498.gb.txt")
 dict = {}
-x = print(dict)
 sequence = ''
 value_seq = ''
 a = 0
@@ -24,8 +23,18 @@ for line in genebank_file:
             if re.search(pattern="[atgc]", string = i) is not None:
                 value_seq += i
         dict["Seq"] = value_seq
+fasta_desc = ">"
+fasta_seq = ""
+for key, value in dict.items():
+    if key != 'Seq':
+        fasta_desc+= dict[key] + "|"
 
+    else:
+        fasta_seq += dict[key].upper()
 
+print(fasta_desc, fasta_seq)
+fasta_genbank = open("fasta_genbank.txt", "w")
+fasta_genbank.write(fasta_desc) + fasta_genbank.write("\n") + fasta_genbank.write(fasta_seq)
 
 
 
